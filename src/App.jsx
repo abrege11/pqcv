@@ -1,7 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import BuilderScreen from './screens/Builder.screen';
 
-function App() {
-    return <h1>Hello, World!</h1>
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/builder" replace />} />
+        <Route path="/builder" element={<BuilderScreen />} />
+      </Routes>
+    </Router>
+  );
 }
-
-export default App
