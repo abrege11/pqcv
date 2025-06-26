@@ -4,13 +4,12 @@ Programmable Quantum Circuit Visualizer (PQCV) is a React application that uses 
 PQCV aims to visualize any circuit the user creates by dragging and dropping gates into the builder window.
 
 # setup
-install npm packages
-`npm i`
+## install npm packages
+<pre> <code> npm i </code> </pre>
 
-run dev
-`npm run dev`
+## run dev
+<pre> <code> npm run dev </code> </pre>
 
-eslint
-`npm run lint`
-
+## eslint
+<pre> <code> npm run lint </code> </pre>
 #
