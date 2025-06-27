@@ -1,5 +1,5 @@
 import React from 'react';
-import theme from '../theme';
+import { theme } from '../theme';
 
 const classes = {
   container: {
@@ -10,11 +10,21 @@ const classes = {
     backgroundColor: theme.colors.lightGrey,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    paddingLeft: 20,
+  },
+  title: {
+    paddingLeft: 10,
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: theme.colors.white,
   },
 };
 
 export default function Header() {
-  return <div style={classes.container}></div>;
+  return (
+    <div style={classes.container}>
+      <div style={classes.title}>PQCV</div>
+    </div>
+  );
 }
-

@@ -1,18 +1,27 @@
 import React from 'react';
-import theme from '../theme';
+import { theme } from '../theme';
 
 const classes = {
   container: {
     position: "absolute",
-    width: 350,
+    width: 300,
+    // top: 90,
     height: '100%',
     backgroundColor: theme.colors.lightGrey,
-    display: 'flex',
-    alignItems: 'center',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, min-content)',
+    gridAutoRows: 'auto',
+    gap: 40,
     justifyContent: 'center',
+    alignContent: 'start',
+    padding: 10,
+    paddingTop: 100,
   },
 };
 
-export default function SideBar() {
-  return <div style={classes.container}></div>;
+
+export default function SideBar({ children }) {
+  return <div style={classes.container}>
+    {children}
+  </div>;
 }
