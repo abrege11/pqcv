@@ -5,8 +5,8 @@ const classes = {
   container: {
     position: "absolute",
     width: 300,
-    // top: 90,
-    height: '100%',
+    top: 0,
+    bottom: 40,
     backgroundColor: theme.colors.lightGrey,
     display: 'grid',
     gridTemplateColumns: 'repeat(2, min-content)',
