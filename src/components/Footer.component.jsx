@@ -5,10 +5,11 @@ import { FOOTER_LINKS } from '../constants';
 const classes = {
   container: {
     bottom: 0,
-    height: 50,
+    height: 40,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    borderTop: `1px solid ${theme.colors.lightGrey}`,
     gap: 40,
   },
   link: {
