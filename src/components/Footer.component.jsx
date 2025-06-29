@@ -10,13 +10,15 @@ const classes = {
     alignItems: 'center',
     justifyContent: 'center',
     borderTop: `1px solid ${theme.colors.lightGrey}`,
-    gap: 40,
+    backgroundColor: '#FAFAFA',
+    gap: 30,
   },
   link: {
-    fontSize: 14,
+    fontSize: 13,
     color: theme.colors.darkGrey,
     textDecoration: 'none',
     cursor: 'pointer',
+    opacity: 0.8,
   },
 };
 
