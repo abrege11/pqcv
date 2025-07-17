@@ -4,7 +4,7 @@ import { ItemTypes } from '../constants';
 
 const Gate = ({
   src,
-  size = 80,
+  size = 70,
   height,
   originChannel = null,
   originCol = null,

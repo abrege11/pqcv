@@ -3,8 +3,7 @@ import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../constants';
 import Gate from './Gate.component';
 import { theme } from '../theme';
-
-const CELL_WIDTH = 80;
+import { CELL_WIDTH } from '../constants';
 
 const classes = {
   wire: {
@@ -73,7 +72,7 @@ const Channel = ({ sprites, onDropSprite, channelIndex }) => {
       <div style={classes.wire} />
       {Object.entries(sprites).map(([col, sprite]) => {
         const spriteHeight = sprite.height ?? CELL_WIDTH;
-        const topOffset = spriteHeight > CELL_WIDTH ? -(spriteHeight - CELL_WIDTH) / 2 : 0;
+        const topOffset = -10;
 
         return (
           <div

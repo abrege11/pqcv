@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import Channel from './Channel.component';
 import Gate from './Gate.component';
 import { theme } from '../theme';
-
-const CELL_WIDTH = 80;
+import { CELL_WIDTH } from '../constants';
 
 const classes = {
   root: {
