@@ -3,7 +3,7 @@ import SideBar from '../components/SideBar.component';
 import BuilderWindow from '../components/BuilderWindow.component';
 import Footer from '../components/Footer.component';
 import { SPRITE_ORDER } from '../constants';
-import SpriteImage from '../components/SpriteImage.component';
+import Gate from '../components/Gate.component';
 
 const classes = {
   screen: {
@@ -24,8 +24,8 @@ export default function BuilderScreen() {
     <div style={classes.screen}>
       <div style={classes.main}>
         <SideBar>
-          {SPRITE_ORDER.map((i) => (
-            <SpriteImage key={i} index={i} size={80} />
+          {SPRITE_ORDER.map((item, i) => (
+            <Gate key={i} {...item} size={80} />
           ))}
         </SideBar>
         <BuilderWindow />
