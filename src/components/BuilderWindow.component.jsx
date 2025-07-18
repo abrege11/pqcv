@@ -34,16 +34,12 @@ const BuilderWindow = () => {
   const removeChannel = () => {
     if (channels.length > 1) setChannels(channels.slice(0, -1));
   };
-
   const handleDropSprite = (
     channelIndex,
     col,
-    spriteIndex,
+    sprite,
     originChannel = null,
-    originCol = null,
-    type = 'spriteSheet',
-    height,
-    src = null
+    originCol = null
   ) => {
     setChannels(prev =>
       prev.map((channel, i) => {
@@ -55,11 +51,9 @@ const BuilderWindow = () => {
 
         if (i === channelIndex) {
           newSprites[col] = {
-            index: spriteIndex,
-            type,
-            src,
-            height: type === 'image' ? 160 : CELL_WIDTH,
-            isMultiQubit: type === 'image' && height === 160,
+            ...sprite,
+            height: sprite.type === 'image' ? 160 : CELL_WIDTH,
+            isMultiQubit: sprite.type === 'image' && sprite.height === 160,
           };
         }
 

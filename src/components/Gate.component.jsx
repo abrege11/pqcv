@@ -7,6 +7,7 @@ const Gate = ({
   size = 70,
   height,
   originChannel = null,
+  gateId,
   originCol = null,
 }) => {
   const [, drag] = useDrag(() => ({
@@ -16,6 +17,7 @@ const Gate = ({
       height,
       originChannel,
       originCol,
+      gateId,
     },
   }));
 
@@ -26,6 +28,7 @@ const Gate = ({
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
+    backgroundColor: '#ffffff',
     cursor: 'grab',
     boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
   }), [src, size, height]);

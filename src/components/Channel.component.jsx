@@ -15,11 +15,20 @@ const classes = {
     backgroundColor: theme.colors.black,
     transform: 'translateY(-1px)',
   },
+  gateContainer: {
+    backgroundColor: '#ffffff',
+    padding: 4
+  }
 };
 
 const Channel = ({ sprites, onDropSprite, channelIndex }) => {
   const dropRef = useRef(null);
-
+  const gateIdList = useMemo(() => {
+    return Object.entries(sprites)
+      .sort(([a], [b]) => parseInt(a) - parseInt(b))
+      .map(([_, sprite]) => sprite.gateId);
+  }, [sprites]);
+  // console.log("gate list", gateIdList)
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.SPRITE,
     drop: (item, monitor) => {
@@ -34,13 +43,17 @@ const Channel = ({ sprites, onDropSprite, channelIndex }) => {
         onDropSprite(
           channelIndex,
           snappedCol,
-          item.index,
+          {
+            index: item.index,
+            type: item.type,
+            height: item.height,
+            src: item.src,
+            gateId: item.gateId,
+          },
           item.originChannel,
-          item.originCol,
-          item.type,
-          item.height,
-          item.src
+          item.originCol
         );
+
       }
     },
     collect: monitor => ({
@@ -54,7 +67,7 @@ const Channel = ({ sprites, onDropSprite, channelIndex }) => {
       minHeight: 60,
       height: 'auto',
       width: '100%',
-      minWidth: '100vw',
+      minWidth: '79vw',
       margin: '10px 0',
       backgroundColor: isOver ? '#f0f0f0' : 'transparent',
       boxSizing: 'border-box',
@@ -70,34 +83,43 @@ const Channel = ({ sprites, onDropSprite, channelIndex }) => {
       style={stateClasses.channelContainer}
     >
       <div style={classes.wire} />
-      {Object.entries(sprites).map(([col, sprite]) => {
-        const spriteHeight = sprite.height ?? CELL_WIDTH;
-        const topOffset = -10;
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          gap: 10,
+          padding: '0 10px',
+        }}
+      >
+        {Object.entries(sprites)
+          .sort(([a], [b]) => parseInt(a) - parseInt(b))
+          .map(([col, sprite]) => {
+            const spriteHeight = sprite.height ?? CELL_WIDTH;
+            return (
+              <div
+                key={`${col}-${channelIndex}`}
+                style={{
+                  width: CELL_WIDTH,
+                  height: spriteHeight,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fill: '#ffffff'
+                }}
+              >
+                <div style={classes.gateContainer}>
+                  <Gate
+                    {...sprite}
+                    size={CELL_WIDTH}
+                    originChannel={channelIndex}
+                    originCol={parseInt(col)}
+                  />
+                </div>
+              </div>
+            );
+          })}
+      </div>
 
-        return (
-          <div
-            key={`${col}-${channelIndex}`}
-            style={{
-              position: 'absolute',
-              left: col * CELL_WIDTH,
-              top: topOffset,
-              width: CELL_WIDTH,
-              height: spriteHeight,
-              pointerEvents: 'none',
-            }}
-          >
-            <Gate
-              index={sprite.index}
-              type={sprite.type}
-              src={sprite.src}
-              size={CELL_WIDTH}
-              height={spriteHeight}
-              originChannel={channelIndex}
-              originCol={parseInt(col)}
-            />
-          </div>
-        );
-      })}
     </div>
   );
 };
