@@ -25,9 +25,10 @@ export default function BuilderScreen() {
     <div style={classes.screen}>
       <div style={classes.main}>
         <SideBar>
-          {SPRITE_ORDER.map((item, i) => (
-            <Gate key={i} {...item} size={CELL_WIDTH} />
-          ))}
+          {SPRITE_ORDER.map((item, i) => {
+            console.log(item);
+            return <Gate key={i} {...item} size={CELL_WIDTH} />
+          })}
         </SideBar>
         <BuilderWindow />
       </div>
