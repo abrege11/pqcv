@@ -3,7 +3,7 @@ import { theme } from '../theme';
 
 const classes = {
   container: {
-    width: 280,
+    width: '20vw',
     backgroundColor: '#F5F5F5',
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 100px)',

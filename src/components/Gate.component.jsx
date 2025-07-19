@@ -2,14 +2,14 @@ import React, { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from '../constants';
 
-const Gate = ({
+export default function Gate ({
   src,
   size = 70,
   height,
   originChannel = null,
   gateId,
   originCol = null,
-}) => {
+}) {
   const [, drag] = useDrag(() => ({
     type: ItemTypes.SPRITE,
     item: {
@@ -35,5 +35,3 @@ const Gate = ({
 
   return <div ref={drag} style={style} />;
 };
-
-export default Gate;
