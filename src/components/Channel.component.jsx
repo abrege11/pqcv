@@ -17,7 +17,13 @@ const classes = {
   },
   gateContainer: {
     backgroundColor: '#ffffff',
-    padding: 4
+    zIndex: 11
+  },
+  wireContentContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    gap: 20,
+    padding: '0 30px',
   }
 };
 
@@ -67,11 +73,16 @@ const Channel = ({ sprites, onDropSprite, channelIndex }) => {
       minHeight: 60,
       height: 'auto',
       width: '100%',
-      minWidth: '79vw',
-      margin: '10px 0',
+      minWidth: '80vw',
       backgroundColor: isOver ? '#f0f0f0' : 'transparent',
       boxSizing: 'border-box',
     },
+    gateWrapper: {
+      width: CELL_WIDTH,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
   }), [isOver]);
 
   return (
@@ -84,12 +95,7 @@ const Channel = ({ sprites, onDropSprite, channelIndex }) => {
     >
       <div style={classes.wire} />
       <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          gap: 10,
-          padding: '0 10px',
-        }}
+        style={classes.wireContentContainer}
       >
         {Object.entries(sprites)
           .sort(([a], [b]) => parseInt(a) - parseInt(b))
@@ -98,14 +104,7 @@ const Channel = ({ sprites, onDropSprite, channelIndex }) => {
             return (
               <div
                 key={`${col}-${channelIndex}`}
-                style={{
-                  width: CELL_WIDTH,
-                  height: spriteHeight,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fill: '#ffffff'
-                }}
+                style={{ ...stateClasses.gateWrapper, height: spriteHeight }}
               >
                 <div style={classes.gateContainer}>
                   <Gate
