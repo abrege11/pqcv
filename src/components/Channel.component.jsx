@@ -4,6 +4,7 @@ import { ItemTypes } from '../constants';
 import Gate from './Gate.component';
 import { theme } from '../theme';
 import { CELL_WIDTH } from '../constants';
+import ketzero from '../../assets/ketzero.png'
 
 const classes = {
   wire: {
@@ -23,7 +24,17 @@ const classes = {
     display: 'flex',
     justifyContent: 'flex-start',
     gap: 20,
-    padding: '0 30px',
+    width: '100%',
+    paddingLeft: '30px',
+  },
+  channelWrapper: {
+    display: 'flex',
+    width: '100%',
+    gap: 20
+  },
+  ketzero: {
+    height: CELL_WIDTH,
+    width: CELL_WIDTH,
   }
 };
 
@@ -34,7 +45,7 @@ const Channel = ({ sprites, onDropSprite, channelIndex }) => {
       .sort(([a], [b]) => parseInt(a) - parseInt(b))
       .map(([_, sprite]) => sprite.gateId);
   }, [sprites]);
-  // console.log("gate list", gateIdList)
+  console.log("gate list", gateIdList)
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.SPRITE,
     drop: (item, monitor) => {
@@ -72,8 +83,7 @@ const Channel = ({ sprites, onDropSprite, channelIndex }) => {
       position: 'relative',
       minHeight: 60,
       height: 'auto',
-      width: '100%',
-      minWidth: '80vw',
+      width: '85%',
       backgroundColor: isOver ? '#f0f0f0' : 'transparent',
       boxSizing: 'border-box',
     },
@@ -86,40 +96,44 @@ const Channel = ({ sprites, onDropSprite, channelIndex }) => {
   }), [isOver]);
 
   return (
-    <div
-      ref={node => {
-        drop(node);
-        dropRef.current = node;
-      }}
-      style={stateClasses.channelContainer}
-    >
-      <div style={classes.wire} />
+    <div style={classes.channelWrapper}>
+      <img src={ketzero} style={classes.ketzero}/>
       <div
-        style={classes.wireContentContainer}
+        ref={node => {
+          drop(node);
+          dropRef.current = node;
+        }}
+        style={stateClasses.channelContainer}
       >
-        {Object.entries(sprites)
-          .sort(([a], [b]) => parseInt(a) - parseInt(b))
-          .map(([col, sprite]) => {
-            const spriteHeight = sprite.height ?? CELL_WIDTH;
-            return (
-              <div
-                key={`${col}-${channelIndex}`}
-                style={{ ...stateClasses.gateWrapper, height: spriteHeight }}
-              >
-                <div style={classes.gateContainer}>
-                  <Gate
-                    {...sprite}
-                    size={CELL_WIDTH}
-                    originChannel={channelIndex}
-                    originCol={parseInt(col)}
-                  />
+        <div style={classes.wire} />
+        <div
+          style={classes.wireContentContainer}
+        >
+          {Object.entries(sprites)
+            .sort(([a], [b]) => parseInt(a) - parseInt(b))
+            .map(([col, sprite]) => {
+              const spriteHeight = sprite.height ?? CELL_WIDTH;
+              return (
+                <div
+                  key={`${col}-${channelIndex}`}
+                  style={{ ...stateClasses.gateWrapper, height: spriteHeight }}
+                >
+                  <div style={classes.gateContainer}>
+                    <Gate
+                      {...sprite}
+                      size={CELL_WIDTH}
+                      originChannel={channelIndex}
+                      originCol={parseInt(col)}
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-      </div>
+              );
+            })}
+        </div>
 
+      </div>
     </div>
+
   );
 };
 
