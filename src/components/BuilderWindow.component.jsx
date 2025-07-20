@@ -3,6 +3,8 @@ import Channel from './Channel.component';
 import Gate from './Gate.component';
 import { theme } from '../theme';
 import { CELL_WIDTH } from '../constants';
+import { Button } from './form/Button.component';
+import { generateInstructions } from '../services/channel.service';
 
 const classes = {
   root: {
@@ -110,10 +112,12 @@ const BuilderWindow = () => {
         )}
 
         <div style={classes.buttonContainer}>
-          <button onClick={addChannel}>+ Add qubit</button>
-          <button onClick={removeChannel}>- Remove qubit</button>
+          <Button onPress={addChannel} title="+ Add qubit" />
+          <Button onPress={removeChannel} title="- Remove qubit" />
+          <Button onPress={generateInstructions} title="Run" />
         </div>
       </div>
+
     </div>
   );
 };
