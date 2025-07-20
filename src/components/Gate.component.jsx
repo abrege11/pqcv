@@ -21,17 +21,20 @@ export default function Gate ({
     },
   }));
 
-  const style = useMemo(() => ({
-    width: size,
-    height: height ?? size,
-    backgroundImage: `url(${src})`,
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundColor: '#ffffff',
-    cursor: 'grab',
-    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+  const stateClasses = useMemo(() => ({
+    gate: {
+      width: size,
+      height: height ?? size,
+      backgroundImage: `url(${src})`,
+      backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundColor: '#ffffff',
+      cursor: 'grab',
+      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+    }
+
   }), [src, size, height]);
 
-  return <div ref={drag} style={style} />;
+  return <div ref={drag} style={stateClasses.gate} />;
 };

@@ -11,7 +11,6 @@ const classes = {
     height: '100%',
     overflowY: 'auto',
     backgroundColor: theme.colors.white,
-    padding: 20,
     paddingTop: 120,
     boxSizing: 'border-box',
   },
@@ -21,7 +20,9 @@ const classes = {
     alignItems: 'center',
     gap: 20,
   },
-  buttonContainer: { display: 'flex', gap: 10 },
+  buttonContainer: {
+    display: 'flex', gap: 10
+  },
 };
 
 const BuilderWindow = () => {
