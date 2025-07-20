@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "flask --app ./api/api run",
+    "start": "flask --app ./api/api run --host=127.0.0.1 --port=8080",
     "lint": "eslint . --ext .js,.jsx"
   },
   "keywords": [],
