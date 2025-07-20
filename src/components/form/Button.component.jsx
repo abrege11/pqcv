@@ -6,5 +6,5 @@ const classes = {
     }
 }
 export function Button ({onPress, title}) {
-    return <button type="button" class="btn preset-filled" onPress={onPress} style={classes.button}>{title}</button>
+    return <button type="button" className="btn preset-filled" onClick={onPress} style={classes.button}>{title}</button>
 }

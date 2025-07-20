@@ -114,7 +114,8 @@ const BuilderWindow = () => {
         <div style={classes.buttonContainer}>
           <Button onPress={addChannel} title="+ Add qubit" />
           <Button onPress={removeChannel} title="- Remove qubit" />
-          <Button onPress={generateInstructions} title="Run" />
+          <Button onPress={() => generateInstructions({test: "test"})} title="Run" />
+
         </div>
       </div>
 
