@@ -2,13 +2,14 @@ import React, { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
 import { ItemTypes } from '../constants';
 
-const Gate = ({
+export default function Gate ({
   src,
-  size = 80,
+  size = 70,
   height,
   originChannel = null,
+  gateId,
   originCol = null,
-}) => {
+}) {
   const [, drag] = useDrag(() => ({
     type: ItemTypes.SPRITE,
     item: {
@@ -16,21 +17,24 @@ const Gate = ({
       height,
       originChannel,
       originCol,
+      gateId,
     },
   }));
 
-  const style = useMemo(() => ({
-    width: size,
-    height: height ?? size,
-    backgroundImage: `url(${src})`,
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    cursor: 'grab',
-    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+  const stateClasses = useMemo(() => ({
+    gate: {
+      width: size,
+      height: height ?? size,
+      backgroundImage: `url(${src})`,
+      backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundColor: '#ffffff',
+      cursor: 'grab',
+      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+    }
+
   }), [src, size, height]);
 
-  return <div ref={drag} style={style} />;
+  return <div ref={drag} style={stateClasses.gate} />;
 };
-
-export default Gate;

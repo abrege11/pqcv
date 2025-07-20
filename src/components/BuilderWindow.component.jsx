@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Channel from './Channel.component';
 import Gate from './Gate.component';
 import { theme } from '../theme';
-
-const CELL_WIDTH = 80;
+import { CELL_WIDTH } from '../constants';
+import { Button } from './form/Button.component';
+import { generateInstructions } from '../services/channel.service';
 
 const classes = {
   root: {
@@ -12,7 +13,6 @@ const classes = {
     height: '100%',
     overflowY: 'auto',
     backgroundColor: theme.colors.white,
-    padding: 20,
     paddingTop: 120,
     boxSizing: 'border-box',
   },
@@ -22,7 +22,9 @@ const classes = {
     alignItems: 'center',
     gap: 20,
   },
-  buttonContainer: { display: 'flex', gap: 10 },
+  buttonContainer: {
+    display: 'flex', gap: 10
+  },
 };
 
 const BuilderWindow = () => {
@@ -35,16 +37,12 @@ const BuilderWindow = () => {
   const removeChannel = () => {
     if (channels.length > 1) setChannels(channels.slice(0, -1));
   };
-
   const handleDropSprite = (
     channelIndex,
     col,
-    spriteIndex,
+    sprite,
     originChannel = null,
-    originCol = null,
-    type = 'spriteSheet',
-    height,
-    src = null
+    originCol = null
   ) => {
     setChannels(prev =>
       prev.map((channel, i) => {
@@ -56,11 +54,9 @@ const BuilderWindow = () => {
 
         if (i === channelIndex) {
           newSprites[col] = {
-            index: spriteIndex,
-            type,
-            src,
-            height: type === 'image' ? 160 : CELL_WIDTH,
-            isMultiQubit: type === 'image' && height === 160,
+            ...sprite,
+            height: sprite.type === 'image' ? 160 : CELL_WIDTH,
+            isMultiQubit: sprite.type === 'image' && sprite.height === 160,
           };
         }
 
@@ -116,10 +112,12 @@ const BuilderWindow = () => {
         )}
 
         <div style={classes.buttonContainer}>
-          <button onClick={addChannel}>+ Add qubit</button>
-          <button onClick={removeChannel}>- Remove qubit</button>
+          <Button onPress={addChannel} title="+ Add qubit" />
+          <Button onPress={removeChannel} title="- Remove qubit" />
+          <Button onPress={generateInstructions} title="Run" />
         </div>
       </div>
+
     </div>
   );
 };

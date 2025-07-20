@@ -19,3 +19,5 @@ export const FOOTER_LINKS = [
   { title: 'PQCV Repo', link: 'https://github.com/abrege11/pqcv' },
   { title: 'Contact', link: 'mailto:bregeabe@gmail.com' },
 ];
+
+export const CELL_WIDTH = 70;

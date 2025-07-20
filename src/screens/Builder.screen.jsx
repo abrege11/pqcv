@@ -4,6 +4,7 @@ import BuilderWindow from '../components/BuilderWindow.component';
 import Footer from '../components/Footer.component';
 import { SPRITE_ORDER } from '../constants';
 import Gate from '../components/Gate.component';
+import { CELL_WIDTH } from '../constants';
 
 const classes = {
   screen: {
@@ -24,9 +25,10 @@ export default function BuilderScreen() {
     <div style={classes.screen}>
       <div style={classes.main}>
         <SideBar>
-          {SPRITE_ORDER.map((item, i) => (
-            <Gate key={i} {...item} size={80} />
-          ))}
+          {SPRITE_ORDER.map((item, i) => {
+            console.log(item);
+            return <Gate key={i} {...item} size={CELL_WIDTH} />
+          })}
         </SideBar>
         <BuilderWindow />
       </div>
