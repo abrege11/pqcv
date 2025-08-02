@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../constants';
 import Gate from './Gate.component';
@@ -40,12 +40,7 @@ const classes = {
 
 const Channel = ({ sprites, onDropSprite, channelIndex }) => {
   const dropRef = useRef(null);
-  const gateIdList = useMemo(() => {
-    return Object.entries(sprites)
-      .sort(([a], [b]) => parseInt(a) - parseInt(b))
-      .map(([_, sprite]) => sprite.gateId);
-  }, [sprites]);
-  console.log("gate list", gateIdList)
+
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.SPRITE,
     drop: (item, monitor) => {

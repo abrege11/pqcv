@@ -30,6 +30,22 @@ const classes = {
 const BuilderWindow = () => {
   const [channels, setChannels] = useState([{ sprites: {} }]);
 
+  const onSubmit = async () => {
+    const channelGatesById = channels.reduce((acc, channel, index) => {
+      const gateIds = Object.values(channel.sprites)
+        .map(sprite => sprite.gateId)
+
+      acc[index] = gateIds;
+      return acc;
+    }, {});
+
+    try {
+      await generateInstructions(channelGatesById);
+    } catch (error) {
+      console.error('Error generating instructions:', error);
+    }
+  };
+
   const addChannel = () => {
     setChannels([...channels, { sprites: {} }]);
   };
@@ -114,7 +130,8 @@ const BuilderWindow = () => {
         <div style={classes.buttonContainer}>
           <Button onPress={addChannel} title="+ Add qubit" />
           <Button onPress={removeChannel} title="- Remove qubit" />
-          <Button onPress={generateInstructions} title="Run" />
+          <Button onPress={onSubmit} title="Run" />
+
         </div>
       </div>
 
