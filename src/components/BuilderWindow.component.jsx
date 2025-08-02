@@ -29,15 +29,20 @@ const classes = {
 
 const BuilderWindow = () => {
   const [channels, setChannels] = useState([{ sprites: {} }]);
-  const [gates, setGates] = useState([]);
 
   const onSubmit = async () => {
+    const channelGatesById = channels.reduce((acc, channel, index) => {
+      const gateIds = Object.values(channel.sprites)
+        .map(sprite => sprite.gateId)
+
+      acc[index] = gateIds;
+      return acc;
+    }, {});
+
     try {
-      await generateInstructions(gates);
-      alert('Instructions generated successfully!');
+      await generateInstructions(channelGatesById);
     } catch (error) {
       console.error('Error generating instructions:', error);
-      alert('Failed to generate instructions.');
     }
   };
 
@@ -85,7 +90,6 @@ const BuilderWindow = () => {
             channelIndex={i}
             sprites={channel.sprites}
             onDropSprite={handleDropSprite}
-            setGates={setGates}
           />
         ))}
 
