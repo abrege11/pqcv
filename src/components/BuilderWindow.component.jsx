@@ -39,14 +39,10 @@ const BuilderWindow = () => {
       return acc;
     }, {});
 
-    console.log("channelGatesById", channelGatesById);
-
     try {
       await generateInstructions(channelGatesById);
-      alert('Instructions generated successfully!');
     } catch (error) {
       console.error('Error generating instructions:', error);
-      alert('Failed to generate instructions.');
     }
   };
 
