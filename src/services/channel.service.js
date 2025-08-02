@@ -1,9 +1,11 @@
 import axios from 'axios';
 
 export const generateInstructions = async (data) => {
+console.log(import.meta.env.VITE_BASE_URL, data);
+
   try {
     const response = await axios.post(
-      'http://localhost:8080/api/generateInstructions',
+      `${import.meta.env.VITE_BASE_URL}/api/generateInstructions`,
       data,
       {
         headers: {
