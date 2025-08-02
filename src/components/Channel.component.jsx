@@ -38,17 +38,8 @@ const classes = {
   }
 };
 
-const Channel = ({ sprites, onDropSprite, channelIndex, setGates }) => {
+const Channel = ({ sprites, onDropSprite, channelIndex }) => {
   const dropRef = useRef(null);
-  const gateIdList = useMemo(() => {
-    return Object.entries(sprites)
-      .sort(([a], [b]) => parseInt(a) - parseInt(b))
-      .map(([_, sprite]) => sprite.gateId);
-  }, [sprites]);
-
-  useEffect(() => {
-    setGates(gateIdList);
-  }, [gateIdList]);
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.SPRITE,

@@ -1,4 +1,5 @@
+from qiskit import QuantumCircuit
 
-def delegate(gates):
-    print("Generating instructions for:", gates)
+def delegate(channels):
+    print("Generating instructions for:", channels)
     return {"message": "Instructions generated successfully"}
