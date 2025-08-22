@@ -1,5 +1,5 @@
 diff --git a/node_modules/interactive-blochsphere/InteractiveBlochSphere.js b/node_modules/interactive-blochsphere/InteractiveBlochSphere.js
-index 719543b..7c4ed33 100644
+index 719543b..fa8674f 100644
 --- a/node_modules/interactive-blochsphere/InteractiveBlochSphere.js
 +++ b/node_modules/interactive-blochsphere/InteractiveBlochSphere.js
 @@ -1,5 +1,5 @@
@@ -9,15 +9,7 @@ index 719543b..7c4ed33 100644
  import TextSprite from '@seregpie/three.text-sprite';
  import GUI from 'lil-gui';
  import * as Qubit from "./Qubit";
-@@ -12,6 +12,7 @@ export class InteractiveBlochSphere {
-     qubitArrow;
- 
-     constructor(parentElement) {
-+        console.log("here")
-         const renderer = new THREE.WebGLRenderer();
-         const scene = new THREE.Scene();
- 
-@@ -20,15 +21,15 @@ export class InteractiveBlochSphere {
+@@ -20,15 +20,15 @@ export class InteractiveBlochSphere {
          const sphereSegments = 32;
  
          const geometryZAxis = new THREE.CircleGeometry(sphereRadius, sphereSegments);
@@ -38,7 +30,7 @@ index 719543b..7c4ed33 100644
  
          // x, y and z axis arrows
          const origin = new THREE.Vector3(0, 0, 0);
-@@ -68,7 +69,7 @@ export class InteractiveBlochSphere {
+@@ -68,7 +68,7 @@ export class InteractiveBlochSphere {
          const dotColor = 0x0000ff;
  
          const geometry = new THREE.SphereGeometry(dotRadius, dotWidthSegments, dotHeightSegments);
@@ -47,16 +39,7 @@ index 719543b..7c4ed33 100644
  
          const dotZero = new THREE.Mesh(geometry, material);
          this.setPosition(dotZero, new THREE.Vector3(0, sphereRadius, 0))
-@@ -225,7 +226,7 @@ export class InteractiveBlochSphere {
-         // Handle window resize
-         window.addEventListener('resize', () => {
-             const height = contentContainer.clientHeight - this.getAbsoluteHeight(this.infoText);
--
-+            console.log(camera)
-             camera.aspect = contentContainer.clientWidth / height;
-             camera.updateProjectionMatrix();
-             renderer.setSize(contentContainer.clientWidth, height);
-@@ -255,12 +256,22 @@ export class InteractiveBlochSphere {
+@@ -255,12 +255,18 @@ export class InteractiveBlochSphere {
          // lil-gui
          const gui = new GUI({
              container: controlsContainer,
@@ -65,24 +48,20 @@ index 719543b..7c4ed33 100644
 +        });
  
          this.buildGUI(gui);
-+        if (parentElement) {
-+            console.error(this.infoText)
-+            parentElement.appendChild(this.infoText);
  
 -        parentElement.appendChild(this.infoText);
 -        parentElement.appendChild(group);
-+        } else {
-+            console.warn('Parent element not found');
-+        }
 +        try {
++            parentElement.appendChild(this.infoText);
 +            parentElement.appendChild(group);
-+        } catch (e) {
-+            console.error(e)
++        } catch (error) {
++            console.error("error", error)
 +        }
++
          group.appendChild(contentContainer);
          group.appendChild(controlsContainer);
          contentContainer.appendChild(renderer.domElement);
-@@ -329,8 +340,8 @@ export class InteractiveBlochSphere {
+@@ -329,8 +335,8 @@ export class InteractiveBlochSphere {
      }
  
      refreshTextInfo(polar, azimuthal, realAlpha, imagAlpha, realBeta, imagBeta) {
