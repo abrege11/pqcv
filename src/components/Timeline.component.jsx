@@ -6,9 +6,9 @@ const classes = {
   container: {
     position: "absolute",
     bottom: 40,
-    left: "20vw",
-    width: "60vw",
-    height: 220,
+    left: "21.5vw",
+    width: "55vw",
+    height: 300,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
