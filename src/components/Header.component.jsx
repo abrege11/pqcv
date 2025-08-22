@@ -7,7 +7,7 @@ const classes = {
     top: 0,
     width: "100%",
     height: 90,
-    backgroundColor: theme.colors.lightGrey,
+    backgroundColor: theme.color.lightGrey,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -17,7 +17,7 @@ const classes = {
     paddingLeft: 10,
     fontSize: 40,
     fontWeight: 'bold',
-    color: theme.colors.white,
+    color: theme.color.white,
   },
 };
 

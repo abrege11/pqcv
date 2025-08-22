@@ -21,3 +21,8 @@ export const FOOTER_LINKS = [
 ];
 
 export const CELL_WIDTH = 70;
+
+export const KET_ZERO = {"alpha": { real: 1, imag: 0 }, "beta": { real: 0, imag: 0 }};
+export const KET_ONE = [{ real: 0, imag: 0 }, { real: 1, imag: 0 }];
+export const KET_PLUS = [{ real: Math.SQRT1_2, imag: 0 }, { real: Math.SQRT1_2, imag: 0 }];
+export const KET_MINUS = [{ real: Math.SQRT1_2, imag: 0 }, { real: -Math.SQRT1_2, imag: 0 }];
