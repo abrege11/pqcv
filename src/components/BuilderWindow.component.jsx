@@ -167,8 +167,8 @@ const onStepBackward = useCallback(() => {
         )}
 
         <div style={classes.buttonContainer}>
-          <Button onPress={addChannel} title="+ Add qubit" />
-          <Button onPress={removeChannel} title="- Remove qubit" />
+          {/* <Button onPress={addChannel} title="+ Add qubit" />
+          <Button onPress={removeChannel} title="- Remove qubit" /> */}
           <Button onPress={onSubmit} title="Compile" />
           <Button onPress={onStepForward} title="Step Forward" disabled={!hasCompiled} />
           <Button onPress={onStepBackward} title="Step Backward" disabled={!hasCompiled} />
