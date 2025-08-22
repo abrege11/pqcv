@@ -1,5 +1,5 @@
 diff --git a/node_modules/interactive-blochsphere/InteractiveBlochSphere.js b/node_modules/interactive-blochsphere/InteractiveBlochSphere.js
-index 719543b..9e9dd87 100644
+index 719543b..0f95de8 100644
 --- a/node_modules/interactive-blochsphere/InteractiveBlochSphere.js
 +++ b/node_modules/interactive-blochsphere/InteractiveBlochSphere.js
 @@ -1,5 +1,5 @@
@@ -39,6 +39,15 @@ index 719543b..9e9dd87 100644
  
          const dotZero = new THREE.Mesh(geometry, material);
          this.setPosition(dotZero, new THREE.Vector3(0, sphereRadius, 0))
+@@ -225,7 +225,7 @@ export class InteractiveBlochSphere {
+         // Handle window resize
+         window.addEventListener('resize', () => {
+             const height = contentContainer.clientHeight - this.getAbsoluteHeight(this.infoText);
+-
++            console.log(camera)
+             camera.aspect = contentContainer.clientWidth / height;
+             camera.updateProjectionMatrix();
+             renderer.setSize(contentContainer.clientWidth, height);
 @@ -255,12 +255,22 @@ export class InteractiveBlochSphere {
          // lil-gui
          const gui = new GUI({
