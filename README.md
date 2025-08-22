@@ -4,7 +4,7 @@ Programmable Quantum Circuit Visualizer (PQCV) is an open source React applicati
 PQCV aims to visualize any circuit the user creates by dragging and dropping gates into the builder window.
 
 # Current State
-Currently, PQCV supports the simulation of multi-qubit systems, returning the probability amplitudes of the qubits after each gate operation.
+Currently, PQCV supports the simulation of single-qubit systems. It provides the ability to compile and step through a circuit while viewing the vector that represents the qubits state on the bloch sphere.
 
 ## Current supported gates
 - H
