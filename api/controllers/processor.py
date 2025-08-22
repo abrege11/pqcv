@@ -19,7 +19,7 @@ def getInstructions(circuitInstructions, numQubits):
             qc = QuantumCircuit(numQubits)
             getattr(qc, gate)(int(qubit))
             state = state.evolve(qc)
-            res.append([{"real": c.real, "imag": c.imag} for c in state.data])
+            res.append({"alpha": {"real": state.data[0].real, "imag": state.data[0].imag}, "beta": {"real": state.data[1].real, "imag": state.data[1].imag}})
     return res
 
 def getCircuitPNG(qc, circuitInstructions):
