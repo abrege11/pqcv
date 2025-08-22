@@ -1,0 +1,74 @@
+diff --git a/node_modules/interactive-blochsphere/InteractiveBlochSphere.js b/node_modules/interactive-blochsphere/InteractiveBlochSphere.js
+index 719543b..fa8674f 100644
+--- a/node_modules/interactive-blochsphere/InteractiveBlochSphere.js
++++ b/node_modules/interactive-blochsphere/InteractiveBlochSphere.js
+@@ -1,5 +1,5 @@
+ import * as THREE from "three";
+-import {OrbitControls} from "three/addons/controls/OrbitControls.js";
++import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+ import TextSprite from '@seregpie/three.text-sprite';
+ import GUI from 'lil-gui';
+ import * as Qubit from "./Qubit";
+@@ -20,15 +20,15 @@ export class InteractiveBlochSphere {
+         const sphereSegments = 32;
+ 
+         const geometryZAxis = new THREE.CircleGeometry(sphereRadius, sphereSegments);
+-        const lineZAxis = new THREE.LineSegments(new THREE.EdgesGeometry(geometryZAxis), new THREE.LineBasicMaterial({color: 0x00000}))
++        const lineZAxis = new THREE.LineSegments(new THREE.EdgesGeometry(geometryZAxis), new THREE.LineBasicMaterial({ color: 0x00000 }))
+ 
+         const geometryXAxis = new THREE.CircleGeometry(sphereRadius, sphereSegments);
+-        geometryXAxis.rotateX(Math.PI/2)
+-        const lineXAxis = new THREE.LineSegments(new THREE.EdgesGeometry(geometryXAxis), new THREE.LineBasicMaterial({color: 0x00000}))
++        geometryXAxis.rotateX(Math.PI / 2)
++        const lineXAxis = new THREE.LineSegments(new THREE.EdgesGeometry(geometryXAxis), new THREE.LineBasicMaterial({ color: 0x00000 }))
+ 
+         const geometryYAxis = new THREE.CircleGeometry(sphereRadius, sphereSegments);
+-        geometryYAxis.rotateY(Math.PI/2)
+-        const lineYAxis = new THREE.LineSegments(new THREE.EdgesGeometry(geometryYAxis), new THREE.LineBasicMaterial({color: 0x00000}))
++        geometryYAxis.rotateY(Math.PI / 2)
++        const lineYAxis = new THREE.LineSegments(new THREE.EdgesGeometry(geometryYAxis), new THREE.LineBasicMaterial({ color: 0x00000 }))
+ 
+         // x, y and z axis arrows
+         const origin = new THREE.Vector3(0, 0, 0);
+@@ -68,7 +68,7 @@ export class InteractiveBlochSphere {
+         const dotColor = 0x0000ff;
+ 
+         const geometry = new THREE.SphereGeometry(dotRadius, dotWidthSegments, dotHeightSegments);
+-        const material = new THREE.MeshBasicMaterial({color: dotColor});
++        const material = new THREE.MeshBasicMaterial({ color: dotColor });
+ 
+         const dotZero = new THREE.Mesh(geometry, material);
+         this.setPosition(dotZero, new THREE.Vector3(0, sphereRadius, 0))
+@@ -255,12 +255,18 @@ export class InteractiveBlochSphere {
+         // lil-gui
+         const gui = new GUI({
+             container: controlsContainer,
+-            width: 150});
++            width: 150
++        });
+ 
+         this.buildGUI(gui);
+ 
+-        parentElement.appendChild(this.infoText);
+-        parentElement.appendChild(group);
++        try {
++            parentElement.appendChild(this.infoText);
++            parentElement.appendChild(group);
++        } catch (error) {
++            console.error("error", error)
++        }
++
+         group.appendChild(contentContainer);
+         group.appendChild(controlsContainer);
+         contentContainer.appendChild(renderer.domElement);
+@@ -329,8 +335,8 @@ export class InteractiveBlochSphere {
+     }
+ 
+     refreshTextInfo(polar, azimuthal, realAlpha, imagAlpha, realBeta, imagBeta) {
+-        this.infoText.innerText = `Alpha: ${realAlpha.toFixed(4)} ${imagAlpha < 0 ? '' : '+'}${imagAlpha.toFixed(4)}i${realAlpha < 0 ? '   ' : '    '}φ: ${Math.round((azimuthal/Math.PI)*180)}°
+-Beta:  ${realBeta.toFixed(4)} ${imagBeta < 0 ? '' : '+'}${imagBeta.toFixed(4)}i${realBeta < 0 ? '   ' : '    '}θ: ${Math.round((polar/Math.PI)*180)}°`;
++        this.infoText.innerText = `Alpha: ${realAlpha.toFixed(4)} ${imagAlpha < 0 ? '' : '+'}${imagAlpha.toFixed(4)}i${realAlpha < 0 ? '   ' : '    '}φ: ${Math.round((azimuthal / Math.PI) * 180)}°
++Beta:  ${realBeta.toFixed(4)} ${imagBeta < 0 ? '' : '+'}${imagBeta.toFixed(4)}i${realBeta < 0 ? '   ' : '    '}θ: ${Math.round((polar / Math.PI) * 180)}°`;
+     }
+ 
+     buildGUI(gui) {
