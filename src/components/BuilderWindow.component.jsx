@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Channel from './Channel.component';
 import Gate from './Gate.component';
 import { theme } from '../theme';
-import { CELL_WIDTH } from '../constants';
+import { CELL_WIDTH, KET_ZERO } from '../constants';
 import { Button } from './form/Button.component';
 import { generateInstructions } from '../services/channel.service';
 
@@ -12,7 +12,7 @@ const classes = {
     width: '100%',
     height: '100%',
     overflowY: 'auto',
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.color.white,
     paddingTop: 120,
     boxSizing: 'border-box',
   },
@@ -27,10 +27,15 @@ const classes = {
   },
 };
 
-const BuilderWindow = () => {
+const BuilderWindow = ({ setCurrentState }) => {
   const [channels, setChannels] = useState([{ sprites: {} }]);
+  const [hasCompiled, setHasCompiled] = useState(false);
+  const [currentInstructionsIdx, setCurrentInstructionsIdx] = useState(0);
+  const [instructions, setInstructions] = useState([]);
 
-  const onSubmit = async () => {
+
+
+  const onSubmit = useCallback(async () => {
     const channelGatesById = channels.reduce((acc, channel, index) => {
       const gateIds = Object.values(channel.sprites)
         .map(sprite => sprite.gateId)
@@ -40,18 +45,52 @@ const BuilderWindow = () => {
     }, {});
 
     try {
-      await generateInstructions(channelGatesById);
+      const res = await generateInstructions(channelGatesById);
+      setInstructions([KET_ZERO, ...res]);
+      setHasCompiled(true);
     } catch (error) {
       console.error('Error generating instructions:', error);
     }
-  };
+  }, [channels])
+
+const onStepForward = useCallback(() => {
+  setCurrentInstructionsIdx((prev) => {
+    if (prev < instructions.length - 1) {
+      return prev + 1;
+    } else {
+      console.log("end of instructions!");
+      return prev;
+    }
+  });
+}, [instructions]);
+
+const onStepBackward = useCallback(() => {
+  setCurrentInstructionsIdx((prev) => {
+    if (prev > 0) {
+      return prev - 1;
+    } else {
+      console.log("at the start");
+      return prev;
+    }
+  });
+}, [instructions]);
+
+  useEffect(() => {
+    console.log("here", instructions[currentInstructionsIdx])
+    console.log("here", instructions[currentInstructionsIdx])
+    if (!instructions || instructions.length === 0) {
+      return;
+    }
+    setCurrentState(instructions[currentInstructionsIdx])
+  }, [currentInstructionsIdx, instructions])
 
   const addChannel = () => {
     setChannels([...channels, { sprites: {} }]);
+    setHasCompiled(false);
   };
-
   const removeChannel = () => {
     if (channels.length > 1) setChannels(channels.slice(0, -1));
+    setHasCompiled(false);
   };
   const handleDropSprite = (
     channelIndex,
@@ -75,7 +114,7 @@ const BuilderWindow = () => {
             isMultiQubit: sprite.type === 'image' && sprite.height === 160,
           };
         }
-
+        setHasCompiled(false);
         return { ...channel, sprites: newSprites };
       })
     );
@@ -128,9 +167,11 @@ const BuilderWindow = () => {
         )}
 
         <div style={classes.buttonContainer}>
-          <Button onPress={addChannel} title="+ Add qubit" />
-          <Button onPress={removeChannel} title="- Remove qubit" />
-          <Button onPress={onSubmit} title="Run" />
+          {/* <Button onPress={addChannel} title="+ Add qubit" />
+          <Button onPress={removeChannel} title="- Remove qubit" /> */}
+          <Button onPress={onSubmit} title="Compile" />
+          <Button onPress={onStepForward} title="Step Forward" disabled={!hasCompiled} />
+          <Button onPress={onStepBackward} title="Step Backward" disabled={!hasCompiled} />
 
         </div>
       </div>

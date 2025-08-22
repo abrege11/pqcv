@@ -8,17 +8,21 @@
     "dev": "vite",
     "start": "flask --app ./api/api run --host=127.0.0.1 --port=8080",
     "lint": "eslint . --ext .js,.jsx",
-    "postinstall": "patch-package"
+    "patch": "node ./scripts/patch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@seregpie/three.text-sprite": "^3.2.0",
     "axios": "^1.10.0",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "install": "^0.13.0",
+    "lil-gui": "^0.20.0",
+    "npm": "^11.5.2",
     "interactive-blochsphere": "^0.2.0",
     "react": "^19.1.0",
     "react-dnd": "^16.0.1",

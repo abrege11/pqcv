@@ -4,12 +4,16 @@ import { FOOTER_LINKS } from '../constants';
 
 const classes = {
   container: {
-    bottom: 0,
-    height: 40,
+    position: "absolute",
+    bottom: 40,
+    left: "21.5vw",
+    width: "55vw",
+    height: 300,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     borderTop: `1px solid ${theme.color.lightGrey}`,
+    borderRight: `1px solid ${theme.color.lightGrey}`,
     backgroundColor: theme.color.background,
     gap: 30,
   },
@@ -22,14 +26,9 @@ const classes = {
   },
 };
 
-export default function Footer() {
+export default function Timeline() {
   return (
     <div style={classes.container}>
-      {FOOTER_LINKS.map(({ title, link }) => (
-        <a key={title} href={link} target="_blank" rel="noopener noreferrer" style={classes.link}>
-          {title}
-        </a>
-      ))}
     </div>
   );
 }
