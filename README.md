@@ -22,7 +22,7 @@ Most circuit visualizers/simulators provide the output of the circuit as a whole
 ![builderWindow](/assets/builderwindowgates.png)
 ## Output from Builder 1
 ![output](assets/output.png)
-Each row (top to bottom) of the output corresponds to each gate (left to right) of the circuit.
+Each row (top to bottom) of the output corresponds to the state vector of the qubit after each gate (left to right) of the circuit.
 
 # Setup
 ## install npm packages
