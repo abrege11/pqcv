@@ -1,5 +1,5 @@
 // BlochSphere.jsx
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import TextSprite from "@seregpie/three.text-sprite";
@@ -11,7 +11,7 @@ import * as Gates from "../interactive-blochsphere/Gates";
 const ARROW_HEAD_LEN = 1.0;
 const ARROW_HEAD_W = 0.75;
 
-export default function BlochSphere({ className, minHeight = 400, readOnly, style, state }) {
+export default function BlochSphere({ className, minHeight = 400, readOnly, style, state, setInteractiveState }) {
     const rootRef = useRef(null);
     const infoRef = useRef(null);
     const controlsRef = useRef(null);
@@ -22,6 +22,12 @@ export default function BlochSphere({ className, minHeight = 400, readOnly, styl
     // console.log(polarCoordinatesHelper(alphaFromState, betaFromState))
     // console.log("alpha", alphaFromState)
     // console.log("beta", betaFromState)
+    const getTextInfo = useCallback((imagAlpha = 0, realAlpha = 1, imagBeta = 0, realBeta = 0, azimuthal = 0, polar = 0) => {
+        return `${realAlpha.toFixed(4)} ${imagAlpha < 0 ? "" : "+"}${imagAlpha.toFixed(4)}i at: ${Math.round((azimuthal / Math.PI) * 180)}°||` +
+            `${realBeta.toFixed(4)} ${imagBeta < 0 ? "" : "+"}${imagBeta.toFixed(4)}i at: ${Math.round((polar / Math.PI) * 180)}°`
+    }, [])
+
+
     useEffect(() => {
         const rootEl = rootRef.current;
         const infoEl = infoRef.current;
@@ -125,7 +131,7 @@ export default function BlochSphere({ className, minHeight = 400, readOnly, styl
 
         addTextAsChild(
             arrowX.cone,
-            new TextSprite({ color: arrowTextColor, fontFamily, fontSize, fontStyle, text: "x"}),
+            new TextSprite({ color: arrowTextColor, fontFamily, fontSize, fontStyle, text: "x" }),
             new THREE.Vector3(0, -1.2, -2.4)
         );
         addTextAsChild(
@@ -179,14 +185,24 @@ export default function BlochSphere({ className, minHeight = 400, readOnly, styl
         const refreshTextInfo = () => {
             const { theta: polar, phi: azimuthal } = qubit.polarCoordinates();
             const { realAlpha, imagAlpha, realBeta, imagBeta } = qubit.qubitValue();
-            // console.log(realAlpha, imagAlpha, realBeta, imagBeta)
-            infoEl.innerText = `Alpha: ${realAlpha.toFixed(4)} ${imagAlpha < 0 ? "" : "+"
+            const { theta: polarFromHelper, phi: azimuthalFromHelper } = polarCoordinatesHelper(alphaFromState, betaFromState)
+            const innerTextStr = `Alpha: ${realAlpha.toFixed(4)} ${imagAlpha < 0 ? "" : "+"
                 }${imagAlpha.toFixed(4)}i${realAlpha < 0 ? "   " : "    "}φ: ${Math.round(
                     (azimuthal / Math.PI) * 180
                 )}°Beta:  ${realBeta.toFixed(4)} ${imagBeta < 0 ? "" : "+"
                 }${imagBeta.toFixed(4)}i${realBeta < 0 ? "   " : "    "}θ: ${Math.round(
                     (polar / Math.PI) * 180
                 )}°`;
+            infoEl.innerText = innerTextStr
+
+            console.log(innerTextStr)
+            console.log("test", getTextInfo(imagAlpha, realAlpha, imagBeta, realBeta, azimuthal, polar))
+
+            if (setInteractiveState) {
+            setInteractiveState(getTextInfo(alphaFromState?.imag, alphaFromState?.real, betaFromState?.imag, betaFromState?.real, azimuthalFromHelper, polarFromHelper))
+
+            }
+
         };
 
         const setArrowWithSphericalPolarCoordinates = (polar, azimuthal) => {
@@ -299,7 +315,6 @@ export default function BlochSphere({ className, minHeight = 400, readOnly, styl
             renderer.render(scene, camera);
         };
         animate();
-        console.log("qubit.qubitValue", qubit.qubitValue)
 
         // ---------- Cleanup ----------
         return () => {

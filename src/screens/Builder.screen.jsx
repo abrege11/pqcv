@@ -28,20 +28,23 @@ const classes = {
 
 export default function BuilderScreen() {
   const [currentState, setCurrentState] = useState(KET_ZERO)
-
+  const [interactiveState, setInteractiveState] = useState(null)
   return (
     <div style={classes.screen}>
       <div style={classes.main}>
         <SideBar>
           {SPRITE_ORDER.map((item, i) => {
-            console.log(item);
             return <Gate key={i} {...item} size={CELL_WIDTH} />
           })}
         </SideBar>
         <BuilderWindow setCurrentState={setCurrentState} />
       </div>
       <div style={classes.bottomContainer}>
-        <Timeline />
+        <Timeline
+          alpha={currentState.alpha}
+          beta={currentState.beta}
+          interactiveStateValue={interactiveState}
+        />
         <BlochSphere
           style={{
             position: "absolute",
@@ -55,6 +58,7 @@ export default function BuilderScreen() {
           }}
           readOnly
           state={currentState}
+          setInteractiveState={setInteractiveState}
         />
       </div>
       <Footer />
