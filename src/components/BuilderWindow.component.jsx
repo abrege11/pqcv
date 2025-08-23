@@ -76,8 +76,6 @@ const onStepBackward = useCallback(() => {
 }, [instructions]);
 
   useEffect(() => {
-    console.log("here", instructions[currentInstructionsIdx])
-    console.log("here", instructions[currentInstructionsIdx])
     if (!instructions || instructions.length === 0) {
       return;
     }
@@ -170,8 +168,8 @@ const onStepBackward = useCallback(() => {
           {/* <Button onPress={addChannel} title="+ Add qubit" />
           <Button onPress={removeChannel} title="- Remove qubit" /> */}
           <Button onPress={onSubmit} title="Compile" />
-          <Button onPress={onStepForward} title="Step Forward" disabled={!hasCompiled} />
-          <Button onPress={onStepBackward} title="Step Backward" disabled={!hasCompiled} />
+          <Button onPress={onStepBackward} title="<- Step Backward" disabled={!hasCompiled} />
+          <Button onPress={onStepForward} title="Step Forward ->" disabled={!hasCompiled} />
 
         </div>
       </div>

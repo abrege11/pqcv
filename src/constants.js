@@ -24,5 +24,12 @@ export const CELL_WIDTH = 70;
 
 export const KET_ZERO = {"alpha": { real: 1, imag: 0 }, "beta": { real: 0, imag: 0 }};
 export const KET_ONE = [{ real: 0, imag: 0 }, { real: 1, imag: 0 }];
-export const KET_PLUS = [{ real: Math.SQRT1_2, imag: 0 }, { real: Math.SQRT1_2, imag: 0 }];
-export const KET_MINUS = [{ real: Math.SQRT1_2, imag: 0 }, { real: -Math.SQRT1_2, imag: 0 }];
+export const KET_PLUS = `\\frac{\\ket{1} + \\ket{0}}{\\sqrt{2}}`;
+export const KET_MINUS = `\\frac{\\ket{1} - \\ket{0}}{\\sqrt{2}}`;
+export const KET_PLUS_TWO = `\\ket{+}`;
+export const KET_MINUS_TWO = `\\ket{-}`;
+export const NORM = `\\frac{1}{\\sqrt{2}}`
+
+export const HADAMARD_MATRIX = '\\begin{pmatrix} 1 & 1 \\\\ 1 & -1 \\end{pmatrix}'
+
+export const ROW_DELIMETER = '||'
